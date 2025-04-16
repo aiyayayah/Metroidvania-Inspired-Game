@@ -5,11 +5,17 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
+    #region parameters
+    [Header("Character")]
     public float speed = 1.0f;
     public float jumpForce = 10.0f;
 
+    [Header("Component")]
     public Rigidbody2D playerRig;
     public Animator playerAnim;
+    public GameObject playerModel;
+    #endregion
+
     void Start()
     {
         
@@ -18,24 +24,44 @@ public class NewBehaviourScript : MonoBehaviour
 
     void Update()
     {
+        Move();
+        Jump();
+    }
+
+    #region CharacterControl
+
+    public void Move()
+    {
+        //get user input
         float xInput = Input.GetAxisRaw("Horizontal");
         float yInput = Input.GetAxisRaw("Vertical");
+
+        //move left and right
         playerRig.velocity = new Vector2(xInput * speed, playerRig.velocity.y);
 
-        if (xInput != 0) //pressed 
+        //animation
+        if (xInput > 0) //move to right 
         {
-            //playerAnim.Play("Run");
             playerAnim.SetBool("isRunning", true);
+            playerModel.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (xInput < 0) // move to lefy
+        {
+            playerAnim.SetBool("isRunning", true);
+            playerModel.transform.rotation = Quaternion.Euler(0, 180, 0); //flip
         }
         else
-        {
-            //playerAnim.Play("Idle");
+        {  
             playerAnim.SetBool("isRunning", false);
         }
+    }
 
+    public void Jump()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerRig.velocity = new Vector2(playerRig.velocity.x, jumpForce);
         }
     }
+    #endregion
 }
