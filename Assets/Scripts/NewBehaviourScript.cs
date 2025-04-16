@@ -8,7 +8,7 @@ public class NewBehaviourScript : MonoBehaviour
     #region parameters
     [Header("Character")]
     public float speed = 1.0f;
-    public float jumpForce = 10.0f;
+    public float jumpForce = 5.0f;
 
     [Header("Component")]
     public Rigidbody2D playerRig;
@@ -28,6 +28,12 @@ public class NewBehaviourScript : MonoBehaviour
         Jump();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision) //trigger when an incoming collider makes contact with this object's collider (2D physics only).
+    {
+        Debug.Log("Collide");
+        playerAnim.SetBool("isJumping", false);
+
+    }
     #region CharacterControl
 
     public void Move()
@@ -61,6 +67,7 @@ public class NewBehaviourScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerRig.velocity = new Vector2(playerRig.velocity.x, jumpForce);
+            playerAnim.SetBool("isJumping", true);
         }
     }
     #endregion
