@@ -4835,10 +4835,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3295789247528518410, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295789247528518410, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3295789247528518410, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: jumpForce
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: playerAnim
       value: 
       objectReference: {fileID: 2128394549}
+    - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: playerModel
+      value: 
+      objectReference: {fileID: 712899221}
+    - target: {fileID: 8254171876194666003, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: fc256417ad6fda941a6da44321f0911b, type: 2}
     - target: {fileID: 8254171876194666003, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: m_CollisionDetection
       value: 1
@@ -7901,6 +7925,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &712899221 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 808443293719655600, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+  m_PrefabInstance: {fileID: 406851563}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &731158558
 GameObject:
   m_ObjectHideFlags: 0
