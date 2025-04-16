@@ -1526,7 +1526,7 @@ Transform:
   - {fileID: 883967425}
   - {fileID: 2058049786}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &136611660
 GameObject:
@@ -2769,7 +2769,7 @@ Transform:
   - {fileID: 2018525381}
   - {fileID: 1152972096}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240843912
 GameObject:
@@ -4835,9 +4835,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: playerAnim
+      value: 
+      objectReference: {fileID: 2128394549}
+    - target: {fileID: 8254171876194666003, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8254171876194666004, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8254171876194666004, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: m_LocalScale.x
@@ -4853,11 +4861,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8254171876194666004, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.69
+      value: -18.68
       objectReference: {fileID: 0}
     - target: {fileID: 8254171876194666004, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.28
+      value: -0.532
       objectReference: {fileID: 0}
     - target: {fileID: 8254171876194666004, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11571,7 +11579,7 @@ Transform:
   - {fileID: 1885353077}
   - {fileID: 401491334}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1230945969
 GameObject:
@@ -11787,7 +11795,7 @@ Transform:
   - {fileID: 1780990671}
   - {fileID: 1585517765}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1246688811
 GameObject:
@@ -12739,7 +12747,7 @@ Transform:
   - {fileID: 1585430816}
   - {fileID: 1796507025}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1348020677
 GameObject:
@@ -20117,7 +20125,7 @@ Transform:
   - {fileID: 1463554935}
   - {fileID: 311223929}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1578754882
 GameObject:
@@ -22358,7 +22366,7 @@ Transform:
   - {fileID: 342797617}
   - {fileID: 606037895}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1724735514
 GameObject:
@@ -27229,7 +27237,7 @@ Transform:
   - {fileID: 995376733}
   - {fileID: 731158559}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2053059901
 PrefabInstance:
@@ -27968,3 +27976,29 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2128394543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8254171876194666006, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+  m_PrefabInstance: {fileID: 406851563}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2128394549
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128394543}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ccc6be350568254db0a6b950cb009b5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
