@@ -55,18 +55,14 @@ public class NewBehaviourScript : MonoBehaviour
         {
             playerModel.transform.rotation = Quaternion.Euler(0, 180, 0); //flip
         }
-        else
-        {  
-            
-        }
     }
 
     public void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        bool isJump = playerAnim.GetBool("isJumping");
+        if (Input.GetKeyDown(KeyCode.Space) && isJump == false)
         {
             playerRig.velocity = new Vector2(playerRig.velocity.x, jumpForce);
-            playerAnim.SetBool("isJumping", true);
         }
     }
     #endregion
