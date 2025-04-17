@@ -44,21 +44,20 @@ public class NewBehaviourScript : MonoBehaviour
 
         //move left and right
         playerRig.velocity = new Vector2(xInput * speed, playerRig.velocity.y);
+        playerAnim.SetFloat("RunBlend", Mathf.Abs(xInput));
 
         //animation
         if (xInput > 0) //move to right 
         {
-            playerAnim.SetBool("isRunning", true);
             playerModel.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (xInput < 0) // move to lefy
         {
-            playerAnim.SetBool("isRunning", true);
             playerModel.transform.rotation = Quaternion.Euler(0, 180, 0); //flip
         }
         else
         {  
-            playerAnim.SetBool("isRunning", false);
+            
         }
     }
 
