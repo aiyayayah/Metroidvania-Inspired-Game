@@ -98,8 +98,12 @@ public class NewBehaviourScript : MonoBehaviour
     {
         canAttack = true;
     }
+    public void AttackStartEvent()
+    {
+        isAttack = true;
+    }
 
-    public void AttackEvent()
+    public void AttackEndEvent()
     {
         isAttack = false;
     }
