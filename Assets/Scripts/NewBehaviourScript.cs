@@ -9,11 +9,14 @@ public class NewBehaviourScript : MonoBehaviour
     [Header("Character")]
     public float speed = 1.0f;
     public float jumpForce = 5.0f;
+    public float attackInterval = 1.0f; //CD 
 
     [Header("Component")]
     public Rigidbody2D playerRig;
     public Animator playerAnim;
     public GameObject playerModel;
+
+    private bool canAttack = true;
     #endregion
 
     void Start()
@@ -69,10 +72,21 @@ public class NewBehaviourScript : MonoBehaviour
 
     public void Attack()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(canAttack == true)
         {
-            playerAnim.SetTrigger("Attack");
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                canAttack = false;
+                playerAnim.SetTrigger("Attack");
+                Invoke("AttackEnd", attackInterval); //delay time 
+            }
         }
+
+    }
+
+    public void AttackEnd()
+    {
+        canAttack = true;
     }
     #endregion
 }
