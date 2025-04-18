@@ -26,6 +26,7 @@ public class NewBehaviourScript : MonoBehaviour
     {
         Move();
         Jump();
+        Attack();
     }
 
     private void OnCollisionEnter2D(Collision2D collision) //trigger when an incoming collider makes contact with this object's collider (2D physics only).
@@ -63,6 +64,14 @@ public class NewBehaviourScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isJump == false)
         {
             playerRig.velocity = new Vector2(playerRig.velocity.x, jumpForce);
+        }
+    }
+
+    public void Attack()
+    {
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            playerAnim.SetTrigger("Attack");
         }
     }
     #endregion
