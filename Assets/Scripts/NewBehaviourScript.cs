@@ -17,6 +17,7 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject playerModel;
 
     private bool canAttack = true;
+    private bool isAttack = false;
     #endregion
 
     void Start()
@@ -46,6 +47,12 @@ public class NewBehaviourScript : MonoBehaviour
         float xInput = Input.GetAxisRaw("Horizontal");
         float yInput = Input.GetAxisRaw("Vertical");
 
+        if (isAttack == true)
+        {
+            xInput = 0;
+        }
+        //if isAttack == false,skip block above and the player can move 
+
         //move left and right
         playerRig.velocity = new Vector2(xInput * speed, playerRig.velocity.y);
         playerAnim.SetFloat("RunBlend", Mathf.Abs(xInput));
@@ -63,30 +70,38 @@ public class NewBehaviourScript : MonoBehaviour
 
     public void Jump()
     {
-        bool isJump = playerAnim.GetBool("isJumping");
-        if (Input.GetKeyDown(KeyCode.Space) && isJump == false)
+        if(isAttack == false)
         {
-            playerRig.velocity = new Vector2(playerRig.velocity.x, jumpForce);
+            bool isJump = playerAnim.GetBool("isJumping");
+            if (Input.GetKeyDown(KeyCode.Space) && isJump == false)
+            {
+                playerRig.velocity = new Vector2(playerRig.velocity.x, jumpForce);
+            }
         }
     }
 
     public void Attack()
     {
-        if(canAttack == true)
+        if(canAttack == true) 
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                canAttack = false;
+                isAttack = true;
+                canAttack = false; 
                 playerAnim.SetTrigger("Attack");
                 Invoke("AttackEnd", attackInterval); //delay time 
             }
         }
-
     }
 
     public void AttackEnd()
     {
         canAttack = true;
+    }
+
+    public void AttackEvent()
+    {
+        isAttack = false;
     }
     #endregion
 }
