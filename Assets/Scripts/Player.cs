@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.UIElements;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Player : MonoBehaviour
 {
     #region parameters
     [Header("Character")]
@@ -15,6 +15,8 @@ public class NewBehaviourScript : MonoBehaviour
     public Rigidbody2D playerRig;
     public Animator playerAnim;
     public GameObject playerModel;
+    public GameObject AttackAnim;
+    public GameObject AttackLocation;
 
     private bool canAttack = true;
     private bool isAttack = false;
@@ -84,10 +86,11 @@ public class NewBehaviourScript : MonoBehaviour
     {
         if(canAttack == true) 
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.J))
             {
                 isAttack = true;
-                canAttack = false; 
+                canAttack = false;
+     
                 playerAnim.SetTrigger("Attack");
                 Invoke("AttackEnd", attackInterval); //delay time 
             }
@@ -106,6 +109,11 @@ public class NewBehaviourScript : MonoBehaviour
     public void AttackEndEvent()
     {
         isAttack = false;
+    }
+
+    public void AttackingEvent()
+    {
+        Instantiate(AttackAnim, AttackLocation.transform.position, AttackLocation.transform.rotation);
     }
     #endregion
 }
