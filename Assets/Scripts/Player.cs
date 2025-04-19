@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         {
             playerModel.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        else if (xInput < 0) // move to lefy
+        else if (xInput < 0) // move to left
         {
             playerModel.transform.rotation = Quaternion.Euler(0, 180, 0); //flip
         }
