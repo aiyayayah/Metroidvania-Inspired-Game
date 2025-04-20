@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546d7ea2a61807f47b2be819a21effe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 15
   attackRotation: {fileID: 5534202699003924871}
 --- !u!1 &5534202701025435204
 GameObject:

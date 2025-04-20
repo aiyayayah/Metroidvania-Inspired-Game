@@ -4571,7 +4571,7 @@ PrefabInstance:
       objectReference: {fileID: 2128394549}
     - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: skill1Read
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: playerModel
