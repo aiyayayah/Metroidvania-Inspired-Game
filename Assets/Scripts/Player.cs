@@ -12,6 +12,11 @@ public class Player : MonoBehaviour
     public float speed = 1.0f;
     public float jumpForce = 5.0f;
 
+    [Header("Teleport")]
+    public bool canTeleport = true;
+    public float teleRead = 1.0f;
+    public float teleportInterval = 2.0f;
+
     [Header("Normal Attack")]
     public float normalAttackInterval = 1.0f; //CD
     private bool canAttack = true;
@@ -137,6 +142,19 @@ public class Player : MonoBehaviour
 
                 }
             }
+
+            else if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                if (canTeleport == true)
+                {
+                    canTeleport = false;
+                    canAttack = false;
+                    playerAnim.SetTrigger("TeleStart");
+                    Invoke("TeleportEnd", teleRead); 
+                    LockMovement();
+                    SkillStartEffect();
+                }
+            }
         } 
     }
     #region Attack
@@ -205,6 +223,21 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region Teleport
+    public void TeleportEnd()
+    {
+        playerAnim.SetTrigger("TeleEnd");
+        Invoke("ResetAttackCoolDown", normalAttackInterval);
+        Invoke("TeleportReset", teleportInterval);
+        UnlockMovement();
+        SkillEndEffect();
+    }
+    public void TeleportReset()
+    {
+        canTeleport = true;
+    }
+
+    #endregion
 
 
 
