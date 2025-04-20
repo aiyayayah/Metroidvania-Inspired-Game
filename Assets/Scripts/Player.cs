@@ -22,9 +22,16 @@ public class Player : MonoBehaviour
     [Header("Skill1 Attack")]
     public bool canSkill1 = true;
     public float skill1Read = 1.0f;  //read time before attack 前摇
-    public float Skill1Interval = 5.0f; //cd
+    public float Skill1Interval = 3.0f; //cd
     public GameObject skill1Box; //collider trigger box
-    public GameObject skill1Location;
+    public GameObject skill1Location; //empty obj
+
+    [Header("Skill1 Attack")]
+    public bool canSkill2 = true;
+    public float skill2Read = 2.0f;  
+    public float Skill2Interval = 5.0f;
+    public GameObject skill2Box; 
+    public GameObject skill2Location;
 
     [Header("Component")]
     public Rigidbody2D playerRig;
@@ -110,8 +117,21 @@ public class Player : MonoBehaviour
                 {
                     canSkill1 = false;
                     canAttack = false;
-                    playerAnim.SetTrigger("Skill1Start");
-                    Invoke("Skill1End", skill1Read); //Wait skill1Read seconds before executing the skill
+                    playerAnim.SetTrigger("SkillStart");
+                    Invoke("Skill1Attack", skill1Read); //Wait skill1Read seconds before executing the skill
+                    LockMovement();
+                    SkillStartEffect();
+
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.L))
+            {
+                if (canSkill2 == true)
+                {
+                    canSkill2 = false;
+                    canAttack = false;
+                    playerAnim.SetTrigger("SkillStart");
+                    Invoke("Skill2Attack", skill2Read); //Wait skill1Read seconds before executing the skill
                     LockMovement();
                     SkillStartEffect();
 
@@ -151,10 +171,10 @@ public class Player : MonoBehaviour
 
     #endregion
 
-    #region Skill1Attack
-    public void Skill1End() //actual skill effect happen here
+    #region Skill 1 Attack
+    public void Skill1Attack() //actual skill effect happen here
     {
-        playerAnim.SetTrigger("Skill1End"); //end anim
+        playerAnim.SetTrigger("SkillEnd"); //end anim
         Instantiate(skill1Box, skill1Location.transform.position, skill1Location.transform.rotation);
         Invoke("ResetAttackCoolDown", normalAttackInterval); //re-enable canAttack = true
         Invoke("Skill1Reset", Skill1Interval); //reset attack1 ability after delay
@@ -167,6 +187,27 @@ public class Player : MonoBehaviour
         canSkill1 = true;
     }
     #endregion
+
+    #region Skill 2 Attack
+    public void Skill2Attack()
+    {
+        playerAnim.SetTrigger("SkillEnd"); 
+        Instantiate(skill2Box, skill2Location.transform.position, skill2Location.transform.rotation);
+        Invoke("ResetAttackCoolDown", normalAttackInterval); 
+        Invoke("Skill2Reset", Skill2Interval); 
+        UnlockMovement();
+        SkillEndEffect();
+    }
+
+    public void Skill2Reset()
+    {
+        canSkill2 = true;
+    }
+    #endregion
+
+
+
+
 
 }
 
