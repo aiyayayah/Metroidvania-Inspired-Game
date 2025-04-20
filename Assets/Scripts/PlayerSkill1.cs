@@ -15,12 +15,12 @@ public class PlayerSkill1 : MonoBehaviour
     {
         if(attackRotation.transform.rotation.y >= 0 && attackRotation.transform.rotation.y < 180) //
         {
-            transform.Translate(new Vector3(1, 0, 0) * speed * Time.deltaTime); //0 to 179 right
+            transform.Translate(new Vector3(1, 0, 0) * speed * Time.deltaTime); // +ve to right
             //Time.deltaTime means change per frame to per second
         }
         else
         {
-            transform.Translate(new Vector3(-1, 0, 0) * speed * Time.deltaTime); //180 to 360 left
+            transform.Translate(new Vector3(-1, 0, 0) * speed * Time.deltaTime); // -ve to left
             //Time.deltaTime means change per frame to per second
         }
 

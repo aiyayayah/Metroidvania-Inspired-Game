@@ -1,7 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
 using UnityEngine;
+using static UnityEditor.Sprites.Packer;
 
 public class Player : MonoBehaviour
 {
@@ -9,22 +11,31 @@ public class Player : MonoBehaviour
     [Header("Character")]
     public float speed = 1.0f;
     public float jumpForce = 5.0f;
-    public float attackInterval = 1.0f; //CD 
+
+    [Header("Normal Attack")]
+    public float normalAttackInterval = 1.0f; //CD
+    private bool canAttack = true;
+    private bool isAttack = false;
+    public GameObject attackAnim;
+    public GameObject attackLocation;
+
+    [Header("Skill1 Attack")]
+    public bool canSkill1 = true;
+    public float skill1Read = 1.0f;  //read time before attack 前摇
+    public float Skill1Interval = 5.0f; //cd
+    public GameObject skill1Box; //collider trigger box
+    public GameObject skill1Location;
 
     [Header("Component")]
     public Rigidbody2D playerRig;
     public Animator playerAnim;
     public GameObject playerModel;
-    public GameObject AttackAnim;
-    public GameObject AttackLocation;
 
-    private bool canAttack = true;
-    private bool isAttack = false;
     #endregion
 
     void Start()
     {
-        
+
     }
 
 
@@ -34,14 +45,12 @@ public class Player : MonoBehaviour
         Jump();
         Attack();
     }
-
     private void OnCollisionEnter2D(Collision2D collision) //trigger when an incoming collider makes contact with this object's collider (2D physics only).
     {
         Debug.Log("Collide");
         playerAnim.SetBool("isJumping", false);
 
     }
-    #region CharacterControl
 
     public void Move()
     {
@@ -84,36 +93,68 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-        if(canAttack == true) 
+        if (canAttack == true)
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
                 isAttack = true;
                 canAttack = false;
-     
-                playerAnim.SetTrigger("Attack");
-                Invoke("AttackEnd", attackInterval); //delay time 
-            }
-        }
-    }
 
-    public void AttackEnd()
-    {
+                playerAnim.SetTrigger("NormalAttack");
+                Invoke("ResetAttackCoolDown", normalAttackInterval); //delay time 
+            }
+            else if (Input.GetKeyDown(KeyCode.K))
+            {
+                if (canSkill1 == true)
+                {
+                    canSkill1 = false;
+                    canAttack = false;
+                    playerAnim.SetTrigger("Skill1Start");
+                    Invoke("Skill1End", skill1Read); //Wait skill1Read seconds before executing the skill
+                    LockMovement();
+
+                }
+            }
+        } 
+    }
+    #region Attack
+    public void ResetAttackCoolDown()
+    { //AttackEnd()
         canAttack = true;
     }
-    public void AttackStartEvent()
-    {
+    public void LockMovement()
+    { //AttackStartEvent
         isAttack = true;
     }
 
-    public void AttackEndEvent()
-    {
+    public void UnlockMovement()
+    {//AttackEndEvent()
         isAttack = false;
     }
 
-    public void AttackingEvent()
+    public void SpawnAttackEffect()
+    { //AttackingEvent()
+        Instantiate(attackAnim, attackLocation.transform.position, attackLocation.transform.rotation);
+    }
+
+    #endregion
+
+    #region Skill1Attack
+    public void Skill1End() //actual skill effect happen here
     {
-        Instantiate(AttackAnim, AttackLocation.transform.position, AttackLocation.transform.rotation);
+        playerAnim.SetTrigger("Skill1End"); //end anim
+        Instantiate(skill1Box, skill1Location.transform.position, skill1Location.transform.rotation);
+        Invoke("ResetAttackCoolDown", normalAttackInterval); //re-enable canAttack = true
+        Invoke("Skill1Reset", Skill1Interval); //reset attack1 ability after delay
+        UnlockMovement();
+    }
+
+    public void Skill1Reset()
+    {
+        canSkill1 = true;
     }
     #endregion
+
 }
+
+
