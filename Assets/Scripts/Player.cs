@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D playerRig;
     public Animator playerAnim;
     public GameObject playerModel;
+    public GameObject skillEffect;
 
     #endregion
 
@@ -112,6 +113,7 @@ public class Player : MonoBehaviour
                     playerAnim.SetTrigger("Skill1Start");
                     Invoke("Skill1End", skill1Read); //Wait skill1Read seconds before executing the skill
                     LockMovement();
+                    SkillStartEffect();
 
                 }
             }
@@ -137,6 +139,16 @@ public class Player : MonoBehaviour
         Instantiate(attackAnim, attackLocation.transform.position, attackLocation.transform.rotation);
     }
 
+    public void SkillStartEffect()
+    {
+        skillEffect.SetActive(true);
+    }
+
+    public void SkillEndEffect()
+    {
+        skillEffect.SetActive(false);
+    }
+
     #endregion
 
     #region Skill1Attack
@@ -147,6 +159,7 @@ public class Player : MonoBehaviour
         Invoke("ResetAttackCoolDown", normalAttackInterval); //re-enable canAttack = true
         Invoke("Skill1Reset", Skill1Interval); //reset attack1 ability after delay
         UnlockMovement();
+        SkillEndEffect();
     }
 
     public void Skill1Reset()
