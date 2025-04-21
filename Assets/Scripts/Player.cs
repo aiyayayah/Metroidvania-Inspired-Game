@@ -12,10 +12,13 @@ public class Player : MonoBehaviour
     public float speed = 1.0f;
     public float jumpForce = 5.0f;
 
-    [Header("Teleport")]
-    public bool canTeleport = true;
-    public float teleRead = 1.0f;
-    public float teleportInterval = 2.0f;
+    [Header("Dash")]
+    public bool canDash = true;
+    public float dashRead = 1.0f;
+    public float dashDirection = 1.0f;
+    public float dashInterval = 2.0f;
+    public float dashSpeed = 20.0f;
+    public bool dashing = false;
 
     [Header("Normal Attack")]
     public float normalAttackInterval = 1.0f; //CD
@@ -71,25 +74,37 @@ public class Player : MonoBehaviour
         float xInput = Input.GetAxisRaw("Horizontal");
         float yInput = Input.GetAxisRaw("Vertical");
 
-        if (isAttack == true)
-        {
-            xInput = 0;
-        }
-        //if isAttack == false,skip block above and the player can move 
 
-        //move left and right
-        playerRig.velocity = new Vector2(xInput * speed, playerRig.velocity.y);
-        playerAnim.SetFloat("RunBlend", Mathf.Abs(xInput));
 
-        //animation
-        if (xInput > 0) //move to right 
+        if (dashing == true)
         {
-            playerModel.transform.rotation = Quaternion.Euler(0, 0, 0);
+            //dash
+            playerRig.velocity = new Vector2(dashSpeed * dashDirection, 0); //suppose to be playerRig.velocity.y, but it will cause the player 
         }
-        else if (xInput < 0) // move to left
+        else 
         {
-            playerModel.transform.rotation = Quaternion.Euler(0, 180, 0); //flip
+            if (isAttack == true)
+            {
+                xInput = 0;
+            }
+            //if isAttack == false,skip block above and the player can move 
+
+            playerRig.velocity = new Vector2(xInput * speed, playerRig.velocity.y); //move left and right
+            playerAnim.SetFloat("RunBlend", Mathf.Abs(xInput));
+
+            //animation
+            if (xInput > 0) //move to right 
+            {
+                dashDirection = 1;
+                playerModel.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            else if (xInput < 0) // move to left
+            {
+                dashDirection = -1;
+                playerModel.transform.rotation = Quaternion.Euler(0, 180, 0); //flip
+            }
         }
+
     }
 
     public void Jump()
@@ -145,14 +160,15 @@ public class Player : MonoBehaviour
 
             else if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                if (canTeleport == true)
+                if (canDash == true)
                 {
-                    canTeleport = false;
+                    canDash = false;
                     canAttack = false;
-                    playerAnim.SetTrigger("TeleStart");
-                    Invoke("TeleportEnd", teleRead); 
+                    dashing = true;
+                    playerAnim.SetTrigger("DashAnimStart");
+                    Invoke("DashEnd", dashRead); 
                     LockMovement();
-                    SkillStartEffect();
+                    //SkillStartEffect();
                 }
             }
         } 
@@ -223,18 +239,19 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    #region Teleport
-    public void TeleportEnd()
+    #region Dash
+    public void DashEnd()
     {
-        playerAnim.SetTrigger("TeleEnd");
+        dashing = false;
+        playerAnim.SetTrigger("DashAnimEnd");
         Invoke("ResetAttackCoolDown", normalAttackInterval);
-        Invoke("TeleportReset", teleportInterval);
+        Invoke("DashReset", dashInterval);
         UnlockMovement();
         SkillEndEffect();
     }
-    public void TeleportReset()
+    public void DashReset()
     {
-        canTeleport = true;
+        canDash = true;
     }
 
     #endregion
