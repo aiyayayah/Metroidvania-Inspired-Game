@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyGetHit : MonoBehaviour
+public class PlayerGetHit : MonoBehaviour
 {
     [Header("Component")]
-    public Animator enemyAnim;
+    public Animator playerAnim;
     public AudioSource conSound;
     public float soundVolume = 0.5f;
 
@@ -21,12 +21,11 @@ public class EnemyGetHit : MonoBehaviour
 
     public void GetHit(Collider2D collision)
     {
-        if (collision.tag == "PlayerAttack")
+        if (collision.tag == "EnemyAttack")
         {
-            enemyAnim.SetTrigger("getHit");
+            playerAnim.SetTrigger("getHit");
             conSound.PlayOneShot(getHitAudio, soundVolume);
             Instantiate(getHitEffect, getHitPosition.transform.position, getHitPosition.transform.rotation);
         }
     }
-
 }
