@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [Header("Character")]
     public float speed = 1.0f;
     public float jumpForce = 5.0f;
+    public float soundVolume = 1.0f;
 
     [Header("Dash")]
     public bool canDash = true;
@@ -19,6 +20,7 @@ public class Player : MonoBehaviour
     public float dashInterval = 2.0f;
     public float dashSpeed = 20.0f;
     public bool dashing = false;
+    public AudioClip dashAudio;
 
     [Header("Normal Attack")]
     public float normalAttackInterval = 1.0f; //CD
@@ -26,6 +28,7 @@ public class Player : MonoBehaviour
     private bool isAttack = false;
     public GameObject attackAnim;
     public GameObject attackLocation;
+    public AudioClip attackAudio;
 
     [Header("Skill1 Attack")]
     public bool canSkill1 = true;
@@ -33,6 +36,7 @@ public class Player : MonoBehaviour
     public float Skill1Interval = 3.0f; //cd
     public GameObject skill1Box; //collider trigger box
     public GameObject skill1Location; //empty obj
+    public AudioClip skill1Audio;
 
     [Header("Skill2 Attack")]
     public bool canSkill2 = true;
@@ -40,6 +44,7 @@ public class Player : MonoBehaviour
     public float Skill2Interval = 5.0f;
     public GameObject skill2Box; 
     public GameObject skill2Location;
+    public AudioClip skill2Audio;
 
     [Header("Shield")]
     public bool canShiled = true;
@@ -48,13 +53,15 @@ public class Player : MonoBehaviour
     public float shieldContinueTime = 2.0f;
     public GameObject shieldBox;
     public GameObject shieldLocation;
+    public AudioClip shieldAudio;
 
     [Header("Component")]
     public Rigidbody2D playerRig;
     public Animator playerAnim;
     public GameObject playerModel;
     public GameObject skillEffect;
-
+    public AudioSource audioComponent;
+    public AudioClip skillConSound;
     #endregion
 
     void Start()
@@ -133,9 +140,9 @@ public class Player : MonoBehaviour
             {
                 isAttack = true;
                 canAttack = false;
-
                 playerAnim.SetTrigger("NormalAttack");
                 Invoke("ResetAttackCoolDown", normalAttackInterval); //delay time 
+                audioComponent.PlayOneShot(attackAudio, soundVolume);
             }
             else if (Input.GetKeyDown(KeyCode.K))
             {
@@ -147,7 +154,6 @@ public class Player : MonoBehaviour
                     Invoke("Skill1Attack", skill1Read); //Wait skill1Read seconds before executing the skill
                     LockMovement();
                     SkillStartEffect();
-
                 }
             }
             else if (Input.GetKeyDown(KeyCode.L))
@@ -160,7 +166,6 @@ public class Player : MonoBehaviour
                     Invoke("Skill2Attack", skill2Read); //Wait skill1Read seconds before executing the skill
                     LockMovement();
                     SkillStartEffect();
-
                 }
             }
 
@@ -168,6 +173,7 @@ public class Player : MonoBehaviour
             {
                 if (canDash == true)
                 {
+                    audioComponent.PlayOneShot(dashAudio, soundVolume);
                     canDash = false;
                     canAttack = false;
                     dashing = true;
@@ -215,6 +221,7 @@ public class Player : MonoBehaviour
     public void SkillStartEffect()
     {
         skillEffect.SetActive(true);
+        audioComponent.PlayOneShot(skillConSound, soundVolume);
     }
 
     public void SkillEndEffect()
@@ -227,6 +234,7 @@ public class Player : MonoBehaviour
     #region Skill 1 Attack
     public void Skill1Attack() //actual skill effect happen here
     {
+        audioComponent.PlayOneShot(skill1Audio, soundVolume);
         playerAnim.SetTrigger("SkillEnd"); //end anim
         Instantiate(skill1Box, skill1Location.transform.position, skill1Location.transform.rotation);
         Invoke("ResetAttackCoolDown", normalAttackInterval); //re-enable canAttack = true
@@ -244,6 +252,7 @@ public class Player : MonoBehaviour
     #region Skill 2 Attack
     public void Skill2Attack()
     {
+        audioComponent.PlayOneShot(skill2Audio, soundVolume);
         playerAnim.SetTrigger("SkillEnd"); 
         Instantiate(skill2Box, skill2Location.transform.position, skill2Location.transform.rotation);
         Invoke("ResetAttackCoolDown", normalAttackInterval); 
@@ -277,6 +286,7 @@ public class Player : MonoBehaviour
     #region Shield
     public void ShieldAnim()
     {
+        audioComponent.PlayOneShot(shieldAudio, soundVolume);
         playerAnim.SetTrigger("SkillEnd");
         //Instantiate(shieldBox, shieldLocation.transform.position, shieldLocation.transform.rotation);
         shieldBox.SetActive(true);
@@ -284,7 +294,6 @@ public class Player : MonoBehaviour
         Invoke("ResetAttackCoolDown", normalAttackInterval);
         Invoke("ShieldReset", shieldInterval);
         UnlockMovement();
-        SkillEndEffect();
     }
 
     public void ShieldReset()
