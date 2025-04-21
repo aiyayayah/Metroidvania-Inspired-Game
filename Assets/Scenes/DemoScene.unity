@@ -4502,6 +4502,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: dashRead
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: dashSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: jumpForce
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: dashInterval
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: normalAttackInterval
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8254171876194666004, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -4548,6 +4568,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8254171876194666006, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8254171876194666006, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
