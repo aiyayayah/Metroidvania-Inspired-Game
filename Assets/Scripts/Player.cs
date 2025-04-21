@@ -34,12 +34,20 @@ public class Player : MonoBehaviour
     public GameObject skill1Box; //collider trigger box
     public GameObject skill1Location; //empty obj
 
-    [Header("Skill1 Attack")]
+    [Header("Skill2 Attack")]
     public bool canSkill2 = true;
     public float skill2Read = 2.0f;  
     public float Skill2Interval = 5.0f;
     public GameObject skill2Box; 
     public GameObject skill2Location;
+
+    [Header("Shield")]
+    public bool canShiled = true;
+    public float shieldRead = 1.0f;
+    public float shieldInterval = 10.0f;
+    public float shieldContinueTime = 2.0f;
+    public GameObject shieldBox;
+    public GameObject shieldLocation;
 
     [Header("Component")]
     public Rigidbody2D playerRig;
@@ -73,8 +81,6 @@ public class Player : MonoBehaviour
         //get user input
         float xInput = Input.GetAxisRaw("Horizontal");
         float yInput = Input.GetAxisRaw("Vertical");
-
-
 
         if (dashing == true)
         {
@@ -166,7 +172,20 @@ public class Player : MonoBehaviour
                     canAttack = false;
                     dashing = true;
                     playerAnim.SetTrigger("DashAnimStart");
+                    Invoke("ResetAttackCoolDown", normalAttackInterval);
                     Invoke("DashEnd", dashRead); 
+                    LockMovement();
+                    //SkillStartEffect();
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.I))
+            {
+                if (canShiled == true)
+                {
+                    canShiled = false;
+                    canAttack = false;
+                    playerAnim.SetTrigger("SkillStart");
+                    Invoke("ShieldAnim", shieldRead);
                     LockMovement();
                     //SkillStartEffect();
                 }
@@ -244,7 +263,6 @@ public class Player : MonoBehaviour
     {
         dashing = false;
         playerAnim.SetTrigger("DashAnimEnd");
-        Invoke("ResetAttackCoolDown", normalAttackInterval);
         Invoke("DashReset", dashInterval);
         UnlockMovement();
         SkillEndEffect();
@@ -256,6 +274,29 @@ public class Player : MonoBehaviour
 
     #endregion
 
+    #region Shield
+    public void ShieldAnim()
+    {
+        playerAnim.SetTrigger("SkillEnd");
+        //Instantiate(shieldBox, shieldLocation.transform.position, shieldLocation.transform.rotation);
+        shieldBox.SetActive(true);
+        Invoke("ShieldController", shieldContinueTime);
+        Invoke("ResetAttackCoolDown", normalAttackInterval);
+        Invoke("ShieldReset", shieldInterval);
+        UnlockMovement();
+        SkillEndEffect();
+    }
+
+    public void ShieldReset()
+    {
+        canShiled = true;
+    }
+
+    public void ShieldController()
+    {
+        shieldBox.SetActive(false);
+    }
+    #endregion
 
 
 
