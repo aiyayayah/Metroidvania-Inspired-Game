@@ -19,6 +19,9 @@ public class EnemyController : MonoBehaviour
     [Header("Enemy")]
     public float enemeyMovingSpeed = 1f;
 
+    [Header("EnemyAnim")]
+    public Animator enemyAnim;
+
     private GameObject player;
     void Start()
     {
@@ -51,7 +54,7 @@ public class EnemyController : MonoBehaviour
         locationEnd.y = transform.position.y; //keep y value same as enemey;s current y so it wont lari
 
         transform.position = Vector2.MoveTowards(transform.position, locationEnd, enemeyMovingSpeed * Time.deltaTime);
-
+        enemyAnim.SetBool("isRun", true);
         //multiply with Time.deltaTime bcs if didnt, it will calculate using fps, and each computer have different fps
 
         Vector3 direction = (locationEnd - transform.position).normalized;
