@@ -45,6 +45,7 @@ public class EnemyController : MonoBehaviour
     public Animator enemyAnim;
     public GameObject enemyDestroyObJ;
     private GameObject player;
+    public GameObject enemyModel;
     private bool canAttack = true;
     private bool isDead = false;
     void Start()
@@ -150,11 +151,11 @@ public class EnemyController : MonoBehaviour
 
         if (direction.x > 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            enemyModel.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (direction.x < 0)
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            enemyModel.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
@@ -180,11 +181,11 @@ public class EnemyController : MonoBehaviour
 
         if (direction.x > 0)
         {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
+            enemyModel.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         else if (direction.x < 0)
         {
-            transform.rotation = Quaternion.Euler(0, 180, 0);
+            enemyModel.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
     }
 
