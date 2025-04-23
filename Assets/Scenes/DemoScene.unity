@@ -27477,6 +27477,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1929034106}
     - target: {fileID: 8515202374140635606, guid: cd7334962569754439e55989df7fdcba, type: 3}
+      propertyPath: enemyClass
+      value: 
+      objectReference: {fileID: 1361692776}
+    - target: {fileID: 8515202374140635606, guid: cd7334962569754439e55989df7fdcba, type: 3}
       propertyPath: getHitAudio
       value: 
       objectReference: {fileID: 8300000, guid: 2426bcd49d0f449448839dc926f772a6, type: 3}
