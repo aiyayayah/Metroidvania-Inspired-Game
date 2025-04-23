@@ -37,7 +37,7 @@ public class EnemyGetHit : MonoBehaviour
     {
         enemyClass.currentHP  = enemyClass.currentHP -  20;
 
-        if (enemyClass.currentHP >= 0)
+        if (enemyClass.currentHP > 0)
         {
             conSound.PlayOneShot(getHitAudio, soundVolume);
 
