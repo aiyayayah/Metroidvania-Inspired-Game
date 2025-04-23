@@ -6,16 +6,21 @@ using UnityEngine.SceneManagement;
 public class GameStartButton : MonoBehaviour
 {
     public GameObject loadingImage;
+    public int gameIndex = 1;
 
     public void StartGameEvent()
     {
-        loadingImage.SetActive(true);
-        StartCoroutine(LoadSceneWithDelay());
+        if(loadingImage != null)
+        {
+            loadingImage.SetActive(true);
+            StartCoroutine(LoadSceneWithDelay());
+        }
+
     }
 
     IEnumerator LoadSceneWithDelay()
     {
         yield return new WaitForSeconds(0.5f); //wait for 0.5 seconds
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(gameIndex);
     }
 }
