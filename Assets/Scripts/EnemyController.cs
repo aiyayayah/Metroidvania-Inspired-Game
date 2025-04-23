@@ -13,7 +13,8 @@ public enum EnemyState
 {
     patrol,
     moveToPlayer,
-    enemyAttack
+    enemyAttack,
+    getHit
 }
 
 public class EnemyController : MonoBehaviour
@@ -75,6 +76,11 @@ public class EnemyController : MonoBehaviour
         {
             AttackPlayer();
         }
+        else if(enemyState == EnemyState.getHit)
+        {
+            enemyAnim.SetBool("isRun", false); //idle anim
+          
+        }    
     }
 
     public void Distance()
