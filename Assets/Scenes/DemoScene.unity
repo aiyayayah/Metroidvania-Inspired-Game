@@ -12349,7 +12349,9 @@ MonoBehaviour:
   attackDistance: 1
   standAndStopTime: 1
   moveDirection: 1
+  enemyState: 0
   enemeyMovingSpeed: 2
+  attackTime: 2
   enemyAnim: {fileID: 368023896}
 --- !u!1 &1362616462
 GameObject:
