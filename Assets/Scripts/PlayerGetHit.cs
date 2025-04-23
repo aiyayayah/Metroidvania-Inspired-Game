@@ -24,11 +24,9 @@ public class PlayerGetHit : MonoBehaviour
 
     public void GetHit(Collider2D collision)
     {
-        ControlHP();
-        if (collision.tag == "EnemyAttack")
+       if(collision.tag == "EnemyAttack")
         {
-
-
+            ControlHP();
         }
     }
     public void EndGetHit()
@@ -42,7 +40,7 @@ public class PlayerGetHit : MonoBehaviour
 
         if(playerClass.currentHP > 0)
         {
-            playerAnim.SetTrigger("getHit");
+            playerAnim.SetTrigger("GetHit");
             conSound.PlayOneShot(getHitAudio, soundVolume);
             playerClass.isAttack = true;
             CancelInvoke("EndGetHit");
