@@ -7,7 +7,6 @@ public class EnemyGetHit : MonoBehaviour
     [Header("Component")]
     public Animator enemyAnim;
     public AudioSource conSound;
-    public float soundVolume = 0.5f;
     public EnemyController enemyClass;
 
     [Header("Get Hit")]
@@ -39,7 +38,7 @@ public class EnemyGetHit : MonoBehaviour
 
         if (enemyClass.currentHP > 0)
         {
-            conSound.PlayOneShot(getHitAudio, soundVolume);
+            conSound.PlayOneShot(getHitAudio, soundVolume.Audio);
 
             enemyClass.enemyState = EnemyState.getHit;
 
@@ -55,6 +54,7 @@ public class EnemyGetHit : MonoBehaviour
         {
             if(isDead == false)
             {
+                conSound.PlayOneShot(getHitAudio, soundVolume.Audio);
                 CancelInvoke("InvokeGetHit");
                 isDead = true;
                 enemyAnim.SetTrigger("dead");
