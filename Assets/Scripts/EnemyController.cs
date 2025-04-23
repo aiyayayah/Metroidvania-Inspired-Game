@@ -4,9 +4,16 @@ using UnityEngine;
 
 public enum EnemyMoveDirection
 {
-    idle,
+    patrolIdle,
     moveLeft,
     moveRight
+}
+
+public enum EnemyState
+{
+    patrol,
+    moveToPlayer,
+    enemyAttack
 }
 
 public class EnemyController : MonoBehaviour
@@ -16,7 +23,7 @@ public class EnemyController : MonoBehaviour
     public GameObject locationLeft;  //left location from zombie
     public GameObject locationCenter; //location on zombie
     public GameObject locationRight; //right location from zombie
-    public GameObject locationTarget; 
+    public GameObject locationTarget;
 
     public float playerEnemyDistance = 0f;  //how far the player is from the enemy
     public float centerDistance = 0f; //how far the player is from the center patrol point
@@ -24,14 +31,17 @@ public class EnemyController : MonoBehaviour
     public float attackDistance = 1f; //enemy start attacking if player within this range
     public float standAndStopTime = 3.0f; //how long the enemy stays idle before moving again
     public EnemyMoveDirection moveDirection = EnemyMoveDirection.moveLeft; //initially set the enemy start moving to left when the game begins
+    public EnemyState enemyState = EnemyState.patrol;
 
     [Header("Enemy")]
     public float enemeyMovingSpeed = 1f;
+    public float attackTime = 2f;
 
     [Header("EnemyComponent")]
     public Animator enemyAnim;
 
     private GameObject player;
+    private bool canAttack = true;
     void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -40,7 +50,31 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
         Distance();
-        Move();
+
+        if (enemyState == EnemyState.patrol)
+        {
+            PatrolMove();
+            if(centerDistance <= walkDistance)
+            {
+                enemyState = EnemyState.moveToPlayer;
+            }
+        }
+        else if (enemyState == EnemyState.moveToPlayer)
+        {
+            MoveToPlayer();
+            if (centerDistance > walkDistance)
+            {
+                enemyState = EnemyState.patrol;
+            }
+            else if(playerEnemyDistance <= attackDistance)
+            {
+                enemyState = EnemyState.enemyAttack;
+            }
+        }
+        else if (enemyState == EnemyState.enemyAttack)
+        {
+            AttackPlayer();
+        }
     }
 
     public void Distance()
@@ -56,16 +90,16 @@ public class EnemyController : MonoBehaviour
         Debug.Log("distance center: " + centerDistance);
     }
 
-    public void Move()
+    public void PatrolMove()
     {
-        if(moveDirection == EnemyMoveDirection.moveLeft)
+        if (moveDirection == EnemyMoveDirection.moveLeft)
         {
             locationTarget = locationLeft;
-            enemyAnim.SetBool("isRun", true);
-            MoveLeftAndRight();
+            
+            PatrolMoveLeftAndRight();
             if (transform.position.x == locationLeft.transform.position.x)
             {
-                moveDirection = EnemyMoveDirection.idle;
+                moveDirection = EnemyMoveDirection.patrolIdle;
                 Invoke("InvokeRight", standAndStopTime);
             }
         }
@@ -73,10 +107,10 @@ public class EnemyController : MonoBehaviour
         {
             locationTarget = locationRight;
             enemyAnim.SetBool("isRun", true);
-            MoveLeftAndRight();
+            PatrolMoveLeftAndRight();
             if (transform.position.x == locationRight.transform.position.x)
             {
-                moveDirection = EnemyMoveDirection.idle;
+                moveDirection = EnemyMoveDirection.patrolIdle;
                 Invoke("InvokeLeft", standAndStopTime);
             }
         }
@@ -85,11 +119,11 @@ public class EnemyController : MonoBehaviour
             enemyAnim.SetBool("isRun", false); //run anim --> idle anim
         }
     }
-    public void MoveLeftAndRight()
+    public void PatrolMoveLeftAndRight()
     {
         Vector3 locationEnd = locationTarget.transform.position; //temp value to store locationTarget
         locationEnd.y = transform.position.y; //keep y value same as enemey;s current y so it wont lari
-
+        enemyAnim.SetBool("isRun", true);
         transform.position = Vector2.MoveTowards(transform.position, locationEnd, enemeyMovingSpeed * Time.deltaTime);
 
         //multiply with Time.deltaTime bcs if didnt, it will calculate using fps, and each computer have different fps
@@ -114,5 +148,49 @@ public class EnemyController : MonoBehaviour
     public void InvokeRight()
     {
         moveDirection = EnemyMoveDirection.moveRight;
+    }
+
+    public void MoveToPlayer()
+    {
+        enemyAnim.SetBool("isRun", true);
+        Vector3 locationEnd = player.transform.position; 
+        locationEnd.y = transform.position.y; 
+
+        transform.position = Vector2.MoveTowards(transform.position, locationEnd, enemeyMovingSpeed * Time.deltaTime);
+
+        Vector3 direction = (locationEnd - transform.position).normalized;
+
+        if (direction.x > 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (direction.x < 0)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+    }
+
+    public void AttackPlayer()
+    {
+        enemyAnim.SetBool("isRun", false);
+        if (canAttack == true)
+        {  
+            canAttack = false;
+            enemyAnim.SetTrigger("attack");
+            Invoke("AttackEnd", attackTime);
+        }
+    }
+
+    public void AttackEnd()
+    {
+        canAttack = true;
+        if (playerEnemyDistance > attackDistance)
+        {
+            enemyState = EnemyState.moveToPlayer;
+        }
+        else if (centerDistance > walkDistance)
+        {
+            enemyState = EnemyState.patrol;
+        }
     }
 }
