@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
     [Header("Normal Attack")]
     public float normalAttackInterval = 1.0f; //CD
     private bool canAttack = true;
-    private bool isAttack = false;
+    public bool isAttack = false;
     public GameObject attackAnim;
     public GameObject attackLocation;
     public AudioClip attackAudio;
