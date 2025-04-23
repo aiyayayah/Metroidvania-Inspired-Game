@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
 
     [Header("Shield")]
     public bool canShiled = true;
+    public bool shieldCon = false;
     public float shieldRead = 1.0f;
     public float shieldInterval = 10.0f;
     public float shieldContinueTime = 2.0f;
@@ -186,7 +187,7 @@ public class Player : MonoBehaviour
                     //SkillStartEffect();
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.I))
+            else if (Input.GetKeyDown(KeyCode.Q))
             {
                 if (canShiled == true)
                 {
@@ -295,16 +296,20 @@ public class Player : MonoBehaviour
         Invoke("ShieldController", shieldContinueTime);
         Invoke("ResetAttackCoolDown", normalAttackInterval);
         Invoke("ShieldReset", shieldInterval);
+        shieldCon = true;
         UnlockMovement();
+        //smtg
     }
 
     public void ShieldReset()
     {
+
         canShiled = true;
     }
 
     public void ShieldController()
     {
+        shieldCon = false;
         shieldBox.SetActive(false);
     }
     #endregion
