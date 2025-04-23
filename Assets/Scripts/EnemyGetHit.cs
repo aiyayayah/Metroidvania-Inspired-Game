@@ -15,6 +15,7 @@ public class EnemyGetHit : MonoBehaviour
     public GameObject getHitPosition;
     public AudioClip getHitAudio;
     public float stunnedTimeAfterHitted = 1.0f;
+    public bool isDead = false;
 
     private void OnTriggerEnter2D(Collider2D collision) //Sent when another object enters a trigger collider attached to this object
     {
@@ -24,16 +25,43 @@ public class EnemyGetHit : MonoBehaviour
     {
         if (collision.tag == "PlayerAttack")
         { 
-            conSound.PlayOneShot(getHitAudio, soundVolume);
-            enemyClass.enemyState = EnemyState.getHit;
-            CancelInvoke("InvokeGetHit");
-            Invoke("InvokeGetHit", stunnedTimeAfterHitted);
-            enemyAnim.SetTrigger("getHit");
-            Instantiate(getHitEffect, getHitPosition.transform.position, getHitPosition.transform.rotation);
+            ControlHP();
         }
     }
     public void InvokeGetHit()
     {
         enemyClass.enemyState = EnemyState.moveToPlayer;
     }
+
+    public void ControlHP()
+    {
+        enemyClass.currentHP  = enemyClass.currentHP -  20;
+
+        if (enemyClass.currentHP >= 0)
+        {
+            conSound.PlayOneShot(getHitAudio, soundVolume);
+
+            enemyClass.enemyState = EnemyState.getHit;
+
+            CancelInvoke("InvokeGetHit");
+
+            Invoke("InvokeGetHit", stunnedTimeAfterHitted);
+
+            enemyAnim.SetTrigger("getHit");
+
+            Instantiate(getHitEffect, getHitPosition.transform.position, getHitPosition.transform.rotation);
+        }
+        else
+        {
+            if(isDead == false)
+            {
+                CancelInvoke("InvokeGetHit");
+                isDead = true;
+                enemyAnim.SetTrigger("dead");
+                enemyClass.enemyState = EnemyState.dead;
+                Instantiate(getHitEffect, getHitPosition.transform.position, getHitPosition.transform.rotation);
+            }
+        }
+    }
+
 }

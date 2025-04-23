@@ -4507,6 +4507,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2031533796, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: getHitAudio
+      value: 
+      objectReference: {fileID: 8300000, guid: 2426bcd49d0f449448839dc926f772a6, type: 3}
+    - target: {fileID: 2031533796, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: playerClass
+      value: 
+      objectReference: {fileID: 1651165254}
+    - target: {fileID: 2031533796, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: soundVolume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2031533796, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+      propertyPath: getHitEffect
+      value: 
+      objectReference: {fileID: 8649103730900180663, guid: 71b87745a5c163d49948a29d4ecdebbc, type: 3}
     - target: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
       propertyPath: soundVolume
       value: 1
@@ -20957,6 +20973,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8254171876194666004, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
   m_PrefabInstance: {fileID: 406851563}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1651165254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8254171876194666001, guid: bfc9cc3678b0e4c4e84168215c9ae320, type: 3}
+  m_PrefabInstance: {fileID: 406851563}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae2e334024820d14c8eee0e65c427597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1658023661
 GameObject:
   m_ObjectHideFlags: 0

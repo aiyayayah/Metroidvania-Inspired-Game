@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     public float speed = 1.0f;
     public float jumpForce = 5.0f;
     public float soundVolume = 1.0f;
+    public float maxHP = 100f;
+    public float currentHP = 100f;
 
     [Header("Dash")]
     public bool canDash = true;
@@ -66,7 +68,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-
+        currentHP = maxHP;
     }
 
 

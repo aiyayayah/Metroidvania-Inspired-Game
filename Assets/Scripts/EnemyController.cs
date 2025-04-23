@@ -14,7 +14,8 @@ public enum EnemyState
     patrol,
     moveToPlayer,
     enemyAttack,
-    getHit
+    getHit,
+    dead
 }
 
 public class EnemyController : MonoBehaviour
@@ -37,12 +38,15 @@ public class EnemyController : MonoBehaviour
     [Header("Enemy")]
     public float enemeyMovingSpeed = 1f;
     public float attackTime = 2f;
+    public float maxHP = 100f;
+    public float currentHP = 100f;
 
     [Header("EnemyComponent")]
     public Animator enemyAnim;
-
+    public GameObject enemyDestroyObJ;
     private GameObject player;
     private bool canAttack = true;
+    private bool isDead = false;
     void Start()
     {
         player = GameObject.FindWithTag("Player");
@@ -80,7 +84,15 @@ public class EnemyController : MonoBehaviour
         {
             enemyAnim.SetBool("isRun", false); //idle anim
           
-        }    
+        }
+        else if (enemyState == EnemyState.dead)
+        { 
+            if(isDead == false)
+            {
+                isDead = true;
+                Destroy(enemyDestroyObJ, 4.0f);
+            }
+        }
     }
 
     public void Distance()
