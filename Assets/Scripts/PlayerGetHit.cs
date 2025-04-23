@@ -25,7 +25,10 @@ public class PlayerGetHit : MonoBehaviour
     {
        if(collision.tag == "EnemyAttack")
         {
-            ControlHP();
+            if(!playerClass.shieldCon)
+            {
+                ControlHP();
+            }   
         }
     }
     public void EndGetHit()
