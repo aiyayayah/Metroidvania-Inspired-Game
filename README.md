@@ -37,13 +37,7 @@
   <figcaption><em>Player performing a dash to evade danger.</em></figcaption>
 </figure>
 
-### Zombie Attack  
-<figure>
-  <img src="img2.png" width="600" alt="Zombie Attack">  
-  <figcaption><em>Zombie enemy initiating an attack on the player.</em></figcaption>
-</figure>
-
-### Level 3 Shield  
+### Player Shield  
 <figure>
   <img src="img3.png" width="600" alt="Shield Ability">  
   <figcaption><em>Player activating a shield for protection.</em></figcaption>
@@ -66,3 +60,12 @@
   <img src="img6.png" width="600" alt="AoE Attack">  
   <figcaption><em>Area-of-effect skill used to damage groups of enemies.</em></figcaption>
 </figure>
+
+### Zombie Attack  
+<figure>
+  <img src="img2.png" width="600" alt="Zombie Attack">  
+  <figcaption><em>Zombie enemy initiating an attack on the player.</em></figcaption>
+</figure>
+
+
+
