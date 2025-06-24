@@ -1,6 +1,4 @@
-# 🎮 Game Title
-
-**Metroidvania-Inspired-Game**
+# 🎮 Metroidvania-Inspired-Game
 
 ---
 
