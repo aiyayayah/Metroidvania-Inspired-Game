@@ -46,7 +46,7 @@
 ### Close Range Attack  
 <figure>
   <img src="img4.png" width="600" alt="Close Range Attack">  
-  <figcaption><em>Player delivering a melee strike to nearby enemies.</em></figcaption>
+  <figcaption><em>Player performing a close-range melee attack.</em></figcaption>
 </figure>
 
 ### Launches a Straight Projectile  
